@@ -58,7 +58,7 @@ const styles = {
     },
     item: {
         width: width * 0.35,
-        height: width * 0.3,
+        height: width * 0.3-20,
         backgroundColor:'#FFE4C4',
         margin:4,
         alignItems:'center',

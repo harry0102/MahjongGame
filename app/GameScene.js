@@ -14,6 +14,7 @@ import {
     Image
 } from 'react-native';
 
+import Toast, {DURATION} from 'react-native-toast-easy'
 const {width, height} = Dimensions.get('window')
 
 var {randomNumber} = require('./util/Util')
@@ -34,6 +35,11 @@ class TableComponent extends Component {
 }
 
 export default class GameScene extends Component {
+    _exitRoom(){
+        var {navigator} = this.props
+        navigator.pop()
+    }
+
     render() {
         return <View style={{justifyContent:'space-between',flex:1,backgroundColor:'#FFDAB9'}}>
             <View style={{flexDirection:'row',justifyContent:'space-between'}}>
@@ -49,11 +55,14 @@ export default class GameScene extends Component {
                     <TouchableOpacity>
                         <Text style={styles.text_small}>信息</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity>
+                    <TouchableOpacity >
                         <Text style={styles.text_small}>设置</Text>
                     </TouchableOpacity>
                     <TouchableOpacity>
                         <Text style={styles.text_small}>玩法</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={this._exitRoom.bind(this)}>
+                        <Text style={styles.text_small}>退出</Text>
                     </TouchableOpacity>
                 </View>
             </View>
@@ -63,16 +72,23 @@ export default class GameScene extends Component {
                 </View>
                 <View style={{flexDirection:'row',justifyContent:'space-around',alignItems:'center'}}>
                     <TableComponent />
-                    <Image style={{width:80,height:80,margin:10}} source={{uri:'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=557385576,1435014867&fm=23&gp=0.jpg'}}/>
+                    <Image style={{width:80,height:80,margin:20}} source={{uri:'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=557385576,1435014867&fm=23&gp=0.jpg'}}/>
                     <TableComponent />
                 </View>
                 <View>
                     <TableComponent />
                 </View>
             </View>
-            <TouchableOpacity style={{alignItems:'center',justifyContent:'center',height:40,backgroundColor:'#FFF8DC'}}>
-                <Text style={styles.text}>邀请好友</Text>
-            </TouchableOpacity>
+            <View>
+                <TouchableOpacity
+                    style={{alignItems:'center',justifyContent:'center',height:30,backgroundColor:'#FFF8DC'}}
+                    onPress={()=>{
+                        this.refs.toast.show('本局开始！',10);
+                    }}>
+                    <Text style={[styles.text]}>开始</Text>
+                </TouchableOpacity>
+            </View>
+            <Toast ref="toast"/>
         </View>
     }
 }
@@ -86,7 +102,8 @@ const styles = {
         width: 80,
         height: 50,
         backgroundColor: '#FFF8DC',
-        alignItems: 'center'
+        alignItems: 'center',
+        justifyContent:'center'
     },
     topRight: {
         width: 120,
