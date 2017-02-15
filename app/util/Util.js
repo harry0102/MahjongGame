@@ -7,3 +7,4 @@ export function randomNumber(Min,Max) {
     var Rand = Math.random();
     return(Min + Math.round(Rand * Range));
 }
+

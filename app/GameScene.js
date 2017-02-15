@@ -18,6 +18,7 @@ import Toast, {DURATION} from 'react-native-toast-easy'
 const {width, height} = Dimensions.get('window')
 
 var {randomNumber} = require('./util/Util')
+var {beginGame} = require('./util/LogicManager')
 
 const urls = ['http://p2.gexing.com/G1/M00/1A/8C/rBACE1JJWx_TBDCxAAB8GSMvxVU761.jpg',
     'http://img39.51tietu.net/pic/2017-011003/20170110030923zgwnujrdwlu107946.jpg',
@@ -83,7 +84,8 @@ export default class GameScene extends Component {
                 <TouchableOpacity
                     style={{alignItems:'center',justifyContent:'center',height:30,backgroundColor:'#FFF8DC'}}
                     onPress={()=>{
-                        this.refs.toast.show('本局开始！',10);
+                        this.refs.toast.show('本局现在开始！',10);
+                        beginGame()
                     }}>
                     <Text style={[styles.text]}>开始</Text>
                 </TouchableOpacity>
